@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./Page3.css";
+// import "./Page3.css";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";

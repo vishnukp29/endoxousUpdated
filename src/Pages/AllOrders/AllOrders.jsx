@@ -257,7 +257,7 @@ function AllOrders() {
                               scope="row"
                               style={{ cursor: "pointer" }}
                             >
-                              #{order?._id}
+                              #{'0000'.substr(String(index).length ) + Number(index+1)}
                             </th>
                             <td>
                               {" "}
