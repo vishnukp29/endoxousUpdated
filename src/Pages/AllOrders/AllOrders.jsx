@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import "./Page2.css";
 // import logo from "../../Assets/Images/logo3.png";
 import DateFormatter from "../../utils/DateFormatter";
@@ -85,8 +88,6 @@ function AllOrders() {
       setFilterOrders(shippedOrdders);
     } else if (item === 3) {
       setFilterOrders(deliveredOrdders);
-    } else if (item === 4) {
-      setFilterOrders(CancelledOrdders);
     } else {
       setFilterOrders(AllOrdders);
     }
@@ -97,10 +98,72 @@ function AllOrders() {
     const nuserysOrders =
       orders && orders.filter((order) => order.deliveredBy === nursery);
     setFilterOrders(nuserysOrders);
-    if (nursery == 1) {
+    if (nursery === 1) {
       setFilterOrders(AllOrdders);
     }
   };
+
+  // Date 
+  let currentDate = new Date().toJSON().slice(0, 10)
+  console.log(currentDate,'current Date'); 
+
+  // Week 
+  const getLastWeeksDate=()=> {
+    const now = new Date();
+    return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toJSON().slice(0,10);
+  }
+  const weekend= getLastWeeksDate()
+  console.log(weekend,'weekend');
+  
+  // Month 
+  function getMonthEndDate(numOfMonths, date = new Date()) {
+    const dateCopy = new Date(date.getTime());
+    dateCopy.setMonth(dateCopy.getMonth() - numOfMonths);
+    return dateCopy;
+  }
+  const date = new Date();
+  const monthend = getMonthEndDate(1, date).toJSON().slice(0,10);
+  console.log(monthend,'monthend');
+  
+  // Filtering
+  const todayOrders =
+    orders && orders.filter((order) => (order.createdAt).slice(0, 10) === currentDate);
+    console.log(todayOrders); 
+    console.log(currentDate);
+
+  // const weekOrders =
+  //   orders && orders.filter((order) =>weekend) >= ((order.createdAt).slice(0, 10));
+  //   console.log(weekOrders);
+
+  const weekOrders =
+  orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=weekend));
+    console.log(weekOrders);
+  
+  const monthOrders =
+    orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=monthend));
+
+  const [selectedValue, updateSelectedValue] = useState();
+  const [selectedDate, setSelectedDate] = useState(null)
+
+  // function onChangeDateHandler(value){
+  //   setSelectedDate(value)
+  // }
+
+  const daysSelect = (e) => {
+    let item = parseInt(e.target.value);
+    if (item === 1) {
+      setFilterOrders(todayOrders);
+    } else if (item === 2) {
+      setFilterOrders(weekOrders);
+    } else if (item === 3) {
+      setFilterOrders(monthOrders);
+    } else if (item === 4) {
+      setFilterOrders(updateSelectedValue(e)); 
+    }else{
+      setFilterOrders(AllOrdders)
+    }
+  };
+
 
   return (
     <div>
@@ -182,12 +245,25 @@ function AllOrders() {
                   <select
                     className="form-select "
                     aria-label="Default select example"
-                  >
-                    <option selected>Lifetime</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    onChange={daysSelect}
+                  > 
+                    <option defaultValue="Select">All Orders</option> 
+                    <option value="1">Today</option>
+                    <option value="2">This Week</option>
+                    <option value="3">This Month</option>
+                    <option value="4">Custom
+                    </option>
                   </select>
+                  {
+                      selectedValue==='4'
+                      ?(
+                        <DatePicker 
+                        selected={selectedDate}
+                        onChange={(date)=> setSelectedDate(date)} 
+                        dateFormat="dd-MM-yyyy"
+                      />
+                      ):null
+                    }
                 </div>
               </div>
             </div>
@@ -257,12 +333,18 @@ function AllOrders() {
                               scope="row"
                               style={{ cursor: "pointer" }}
                             >
-                              #{order?._id}
+                              {order?._id}
+                              
                             </th>
                             <td>
                               {" "}
                               <DateFormatter date={order.createdAt} />{" "}
+                              
+                              {/* {order.createdAt.slice(0, 10)}
+                              {console.log((order.createdAt).slice(0, 10),'Date')};  */}
+
                             </td>
+                            
                             <td>
                               {order.user?.name
                                 ? order.user?.name
