@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,30 +9,30 @@ import { toast } from "react-toastify";
 
 const AddProducts = () => {
   const dispatch = useDispatch();
-//   const alert = useAlert();
+  //   const alert = useAlert();
   const navigate = useNavigate();
 
-  const { loading, error, success,message } = useSelector((state) => state.newProduct);
+  const { loading, error, success, message } = useSelector(
+    (state) => state.newProduct
+  );
   const { categoryList } = useSelector((state) => state.allCategories);
 
-  const [name, setName] = useState('');
-	const [description, setDescription] = useState('');
-	const [category, setCategory] = useState('');
-	const [price, setPrice] = useState(0);
-	const [mrp, setMrp] = useState(0);
-	const [discount, setDiscount] = useState(0);
-	const [stock, setStock] = useState(0);
-	const [rating, setRating] = useState(0);
-	const [images, setImages] = useState([]);
-	const [oldImages, setOldImages] = useState([]);
-	const [imagesPreviw, setImagesPreviw] = useState([]);
-	const [inventory, setInventory] = useState(0);
-	const [faqs, setFaqs] = useState([]);
-	// tags
-	const [tags, setTags] = useState([]);
-	const [tag, setTag] = useState('');
-
-
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [price, setPrice] = useState(0);
+  const [mrp, setMrp] = useState(0);
+  const [discount, setDiscount] = useState(0);
+  const [stock, setStock] = useState(0);
+  const [rating, setRating] = useState(0);
+  const [images, setImages] = useState([]);
+  const [oldImages, setOldImages] = useState([]);
+  const [imagesPreviw, setImagesPreviw] = useState([]);
+  const [inventory, setInventory] = useState(0);
+  const [faqs, setFaqs] = useState([]);
+  // tags
+  const [tags, setTags] = useState([]);
+  const [tag, setTag] = useState("");
 
   useEffect(() => {
     if (error) {
@@ -48,7 +47,7 @@ const AddProducts = () => {
     }
 
     dispatch(getAllCategories());
-  }, [dispatch,error,success,message,navigate]);
+  }, [dispatch, error, success, message, navigate]);
 
   const createProductSubmitHandler = (e) => {
     e.preventDefault();
@@ -101,39 +100,41 @@ const AddProducts = () => {
   };
 
   // Tags
-	const handleTagInput = (e) => {
-		if (e.target.value.length > 0) {
-			console.log("🚀 ~ file: EditProducts.jsx ~ line 149 ~ handleTagInput ~ e.target.value", e.target.value)
-			setTag(e.target.value);
-			console.log(tag);
-		}
-		
-	}
-	const addTag = (e) => {
-		if (tags.length < 0) {
-		setTags(tag)
-		} else {
-				console.log(
-					'🚀 ~ file: EditProducts.jsx ~ line 149 ~ addTag ~ tag.length',
-					tag.length,
-					tag,
-					tags
-				);
-				setTags([...tags, tag]);
-				console.log(tags);
-		}
-		setTag('');
-	};
-	const removeTag = (removedTag) => {
-		const newTags = tags.filter((tag) => tag !== removedTag);
-		setTags(newTags);
-	};
-	const clearTags = () => {
-		setTags([]);
-	};
+  const handleTagInput = (e) => {
+    if (e.target.value.length > 0) {
+      console.log(
+        "🚀 ~ file: EditProducts.jsx ~ line 149 ~ handleTagInput ~ e.target.value",
+        e.target.value
+      );
+      setTag(e.target.value);
+      console.log(tag);
+    }
+  };
+  const addTag = (e) => {
+    if (tags.length < 0) {
+      setTags(tag);
+    } else {
+      console.log(
+        "🚀 ~ file: EditProducts.jsx ~ line 149 ~ addTag ~ tag.length",
+        tag.length,
+        tag,
+        tags
+      );
+      setTags([...tags, tag]);
+      console.log(tags);
+    }
+    setTag("");
+  };
+  const removeTag = (removedTag) => {
+    const newTags = tags.filter((tag) => tag !== removedTag);
+    setTags(newTags);
+  };
+  const clearTags = () => {
+    setTags([]);
+  };
 
   return (
-    <div className="">
+    <div className="section2">
       <nav
         className="s2-navabar navbar navbar-expand-lg"
         style={{ backgroundColor: "white" }}
@@ -207,18 +208,18 @@ const AddProducts = () => {
                 Product Category
               </label>
               <select
-                    onChange={(e) => setCategory(e.target.value)}
-                    value={category}
-                  >
-                    <option value="">Choose Category</option>
+                onChange={(e) => setCategory(e.target.value)}
+                value={category}
+              >
+                <option value="">Choose Category</option>
 
-                    {categoryList &&
-                      createCategoryList(categoryList).map((option) => (
-                        <option key={option.value} value={option.name}>
-                          {option.name}
-                        </option>
-                      ))}
-                  </select>
+                {categoryList &&
+                  createCategoryList(categoryList).map((option) => (
+                    <option key={option.value} value={option.name}>
+                      {option.name}
+                    </option>
+                  ))}
+              </select>
             </div>
 
             <div class="d-flex flex-row gap-2">
@@ -263,7 +264,7 @@ const AddProducts = () => {
                 </label>
                 <input
                   type="number"
-                  class="form-control" 
+                  class="form-control"
                   id="exampleInputNumber"
                   aria-describedby="numberHelp"
                   value={stock}
@@ -290,9 +291,9 @@ const AddProducts = () => {
               />
             </div>
             <div id="createProductFormImage">
-                {imagesPreviw.map((image, index) => (
-                    <img key={index} src={image} alt="Avatar Preview" />
-                ))}
+              {imagesPreviw.map((image, index) => (
+                <img key={index} src={image} alt="Avatar Preview" />
+              ))}
             </div>
           </div>
 
@@ -314,53 +315,50 @@ const AddProducts = () => {
           </div>
 
           <div className="bg-white p-4 rounded mt-3">
-						<div className="mb-2">
-							<h6>Tags to Products</h6>
+            <div className="mb-2">
+              <h6>Tags to Products</h6>
 
-							<input
-								type="text"
-								className="form-control"
-								id="exampleInputNumber1"
-								aria-describedby="numberHelp"
-								value={tag || ''}
-								onChange={handleTagInput}
-							/>
-						</div>
-						<div className="gap-2 d-flex">
-							<button
-								onClick={addTag}
-								type="button"
-								className="btn btn-secondary rounded-pill"
-							>
-								Add Tag
-							</button>
-							{tags && (
-								<>
-									{tags?.map((tag, index) => (
-										<button
-											key={index}
-											onClick={() => removeTag(tag)}
-											type="button"
-											className="btn btn-danger rounded-pill"
-										>
-											{tag}{' '}
-											<span className="ml-1">X</span>
-										</button>
-									))}
+              <input
+                type="text"
+                className="form-control"
+                id="exampleInputNumber1"
+                aria-describedby="numberHelp"
+                value={tag || ""}
+                onChange={handleTagInput}
+              />
+            </div>
+            <div className="gap-2 d-flex">
+              <button
+                onClick={addTag}
+                type="button"
+                className="btn btn-secondary rounded-pill"
+              >
+                Add Tag
+              </button>
+              {tags && (
+                <>
+                  {tags?.map((tag, index) => (
+                    <button
+                      key={index}
+                      onClick={() => removeTag(tag)}
+                      type="button"
+                      className="btn btn-danger rounded-pill"
+                    >
+                      {tag} <span className="ml-1">X</span>
+                    </button>
+                  ))}
 
-									<button
-										onClick={() => clearTags()}
-										type="button"
-										className="btn btn-danger rounded-pill ml-1"
-									>
-										Clear All Tags{' '}
-										<span className="ml-1">X</span>
-									</button>
-								</>
-							)}
-						</div>
-					</div>
-
+                  <button
+                    onClick={() => clearTags()}
+                    type="button"
+                    className="btn btn-danger rounded-pill ml-1"
+                  >
+                    Clear All Tags <span className="ml-1">X</span>
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
 
           <button type="submit" class="btn btn-success w-100 mt-3 mb-5">
             <Link to="" style={{ color: "white", textDecoration: "none" }}>

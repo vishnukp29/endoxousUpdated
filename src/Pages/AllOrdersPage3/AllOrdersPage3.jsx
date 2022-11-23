@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-// import "./Page3.css";
+import "./Page3.css";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
@@ -62,33 +62,6 @@ function AllOrdersPage3() {
   return (
     <div className="p3-body">
       <div className="mainsection">
-        {/* <div className="section1">
-          <div className="logo">
-            <img className="logo" src={logo} />
-          </div>
-          <div>
-            <ul className="navbar-nav justify-content-end flex-grow-1 ">
-              <li className="nav-item m-2">
-                <button className="s1-btn btn  px-4 ">Home</button>
-              </li>
-              <li className="nav-item m-2">
-                <button className="s1-btn btn  px-4 ">Orders</button>
-              </li>
-              <li className="nav-item m-2">
-                <button className="s1-btn btn  px-4 ">All Nurseries</button>
-              </li>
-              <li className="nav-item m-2">
-                <button className="s1-btn btn px-4 ">Payments</button>
-              </li>
-              <li className="nav-item m-2">
-                <button className="s1-btn btn  px-4 ">Nurseries</button>
-              </li>
-              <li className="nav-item m-2">
-                <button className=" s1-btn btn  px-4 ">Logout</button>
-              </li>
-            </ul>
-          </div>
-        </div> */}
         <div className="section2">
           <nav
             className="s2-navabar navbar navbar-expand-lg "
@@ -131,7 +104,7 @@ function AllOrdersPage3() {
                       type="radio"
                       name="radioNoLabel"
                       id="radioNoLabel1"
-                      value="Pending"
+                      value=""
                       aria-label="..."
                       style={{
                         backgroundColor:
@@ -147,7 +120,7 @@ function AllOrdersPage3() {
                     {order?.orderStatus}
                   </div>
                 </div>
-                <div>
+                <div className="p3-box">
                   <p>DELIVERING NURSERY</p>
                   <p>
                     {order?.deliveredBy
@@ -161,17 +134,17 @@ function AllOrdersPage3() {
                   order?.orderItems &&
                   order?.orderItems.map((item, index) => (
                     <Fragment>
-                      <p>{index + 1} ITEM</p>
-                      <div className="d-flex ">
-                        <div className="p3-order-item-block mx-4"> </div>
+                      <p className="item-text">{index + 1} ITEM</p>
+                      <div className="d-flex p3-items">
+                        <div className="p3-order-item-block me-4"></div>
                         <div>
                           <p>{item.name}</p>
                           <p>Per Price</p>
-                          <div className="d-flex justify-content-between">
+                          <div className="d-flex justify-content-between align-items-center">
                             <button className="btn bg-info">
                               {item.quantity}
                             </button>{" "}
-                            x {item?.price} =
+                            &nbsp; x {item?.price} =
                             <div>{item.quantity * item?.price}/-</div>
                           </div>
                         </div>
@@ -180,7 +153,7 @@ function AllOrdersPage3() {
                   ))}
                 <hr />
                 <div className="d-flex  justify-content-between">
-                  <div>item Total</div>
+                  <div>Item Total</div>
                   <div>{order?.itemPrice}/-</div>
                 </div>
                 <div className="d-flex  justify-content-between">
@@ -195,8 +168,8 @@ function AllOrdersPage3() {
                 </div>
               </div>
               <div className="p3-order-block">
-                <div className="d-flex justify-content-between px-3">
-                  <h6>Customer Detailes</h6>
+                <div className="d-flex justify-content-between align-items-center px-3">
+                  <h6 style={{ margin: "0" }}>Customer Detailes</h6>
                   <NavLink to="/">Edit</NavLink>
                 </div>
                 <hr />
@@ -206,7 +179,7 @@ function AllOrdersPage3() {
                     <input
                       type="text"
                       placeholder="Full Name"
-                      value={order?.user?.name ? order?.user?.name : " Name"}
+                      value={order?.user?.name ? order?.user?.name : "Name"}
                       readOnly
                     />
                   </div>
@@ -214,7 +187,7 @@ function AllOrdersPage3() {
                     <label>Number</label> <br />
                     <input
                       type="text"
-                      placeholder="Full Name"
+                      placeholder=""
                       value={
                         order?.user?.phone
                           ? order?.user?.phone
@@ -320,23 +293,26 @@ function AllOrdersPage3() {
                       readOnly
                     />
                   </div>
-                  <div>
-                    <label>Payment Method</label> <br />
-                    <input
-                      type="text"
-                      placeholder="Cash on delivery"
-                      value={
-                        order?.paymentInfo?.method
-                          ? order?.paymentInfo?.method
-                          : "Payment Method"
-                      }
-                      readOnly
-                    />
-                    <button className="btn">
-                      {order?.paymentInfo?.method === "online"
-                        ? "online Payment"
-                        : "COD"}
-                    </button>
+                  <div className="d-flex justify-content-end">
+                    <div className="d-inline" style={{ width: "80%" }}>
+                      <label>Payment Method</label> <br />
+                      <input
+                        className="w-50"
+                        type="text"
+                        placeholder="Cash on delivery"
+                        value={
+                          order?.paymentInfo?.method
+                            ? order?.paymentInfo?.method
+                            : "Payment Method"
+                        }
+                        readOnly
+                      />
+                      <span>
+                        {order?.paymentInfo?.method === "online"
+                          ? "Online"
+                          : "COD"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -347,7 +323,7 @@ function AllOrdersPage3() {
                 <div className="p3-notes-bg"></div>
               </div>
               <div className="p3-activity-bg">
-                ACTIVITY
+                <p>ACTIVITY</p>
                 <div>
                   <div>
                     <input
@@ -414,38 +390,27 @@ function AllOrdersPage3() {
                     <h5> CUSTOMER HELP</h5>
                     <div className="p3-notes-bg">
                       <p6>{ticket?.ticket}</p6>
-                      <hr className="p3-customer-hr-dotted" />
+                      <hr className="p3-customer-hr" />
                       <p6 className="h6 text-right">
                         {/* - Raised at 05:00 PM, 23rd Aug 2022 */}
                         <DateFormatter date={ticket.createdAt} />
                       </p6>
                     </div>
                     <button
-                      className="btn  bg-info"
+                      className="btn"
                       onClick={() => ticketCloseHandler(ticket._id)}
                     >
-                      close ticket
+                      Close ticket
                     </button>
                   </div>
                 ))}
-              {/* <div className="p3-notes">
-                <h5> CUSTOMER HELP</h5>
-                <div className="p3-notes-bg">
-                  <p6>I did not recieve my order</p6>
-                  <hr className="p3-customer-hr-dotted" />
-                  <p6 className="h6 text-right">
-                    - Raised at 05:00 PM, 23rd Aug 2022
-                  </p6>
-                </div>
-                <button className="btn  bg-info">close ticket</button>
-              </div> */}
             </div>
           </div>
           <footer
-            className="navbar navbar-expand-lg p-2 m-5 text-right "
+            className="navbar navbar-expand-lg p-2"
             style={{ backgroundColor: "white" }}
           >
-            <div className="container-fluid px-5 d-flex align-items-end">
+            <div className="container-fluid px-5 d-flex align-items-center justify-content-end">
               {order && order.orderStatus === "Delivered" ? (
                 <h4>
                   <DateFormatter date={order && order?.deliverdAt} /> - Order
@@ -459,7 +424,7 @@ function AllOrdersPage3() {
                     <Fragment>
                       {order && order?.orderStatus === "Shipped" ? (
                         <button
-                          className="btn btn-outline bg-warning "
+                          className="p3-button btn btn-outline"
                           type="submit"
                           onClick={() =>
                             OrderSatusHandler(order && order._id, {
@@ -471,7 +436,7 @@ function AllOrdersPage3() {
                         </button>
                       ) : (
                         <button
-                          className="btn btn-outline bg-warning "
+                          className="p3-button btn btn-outline"
                           type="submit"
                           onClick={() =>
                             OrderSatusHandler(order && order._id, {
