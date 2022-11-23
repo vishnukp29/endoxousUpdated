@@ -128,6 +128,8 @@ const AllProducts = () => {
                 Show low/Out of stock products
               </label>
             </div>
+            <div>Grid</div>
+            <div className="mx-1">List</div>
            
             <div className="p2-selection mx-2">
               <select
@@ -156,14 +158,16 @@ const AllProducts = () => {
           </div>
         </div>
       </div>
+
       {loading ? (
         <Loader />
       ) : (
+        
         <div>
+          {/* List View */}
           <div
             className="container-lg d-flex justify-content-between px-5 py-2"
-            style={{ width: "100%" }}
-          >
+            style={{ width: "100%" }}>
             <table
               className="table table-borderless"
               style={{
@@ -230,6 +234,8 @@ const AllProducts = () => {
               </tbody>
             </table>
           </div>
+
+          {/* Grid view */}
           <div className="container-lg d-flex flex-wrap justify-content-between px-5 py-2">
             <div className="container-md p-0">
               <div

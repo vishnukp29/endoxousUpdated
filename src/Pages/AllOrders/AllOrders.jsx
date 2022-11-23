@@ -105,7 +105,6 @@ function AllOrders() {
 
   // Date 
   let currentDate = new Date().toJSON().slice(0, 10)
-  console.log(currentDate,'current Date'); 
 
   // Week 
   const getLastWeeksDate=()=> {
@@ -113,7 +112,6 @@ function AllOrders() {
     return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toJSON().slice(0,10);
   }
   const weekend= getLastWeeksDate()
-  console.log(weekend,'weekend');
   
   // Month 
   function getMonthEndDate(numOfMonths, date = new Date()) {
@@ -123,34 +121,41 @@ function AllOrders() {
   }
   const date = new Date();
   const monthend = getMonthEndDate(1, date).toJSON().slice(0,10);
-  console.log(monthend,'monthend');
+
+  // Custome Date
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(new Date())
+  console.log(selectedDate);
+
+  const [customDate, setCustomDate] = useState(selectedDate.toJSON().slice(0,10))
+
+  useEffect(()=>{
+    setCustomDate(selectedDate.toJSON().slice(0,10))
+    console.log(customDate,'====');
+  },[selectedDate])
   
   // Filtering
   const todayOrders =
     orders && orders.filter((order) => (order.createdAt).slice(0, 10) === currentDate);
-    console.log(todayOrders); 
-    console.log(currentDate);
-
-  // const weekOrders =
-  //   orders && orders.filter((order) =>weekend) >= ((order.createdAt).slice(0, 10));
-  //   console.log(weekOrders);
 
   const weekOrders =
-  orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=weekend));
-    console.log(weekOrders);
+    orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=weekend));
   
   const monthOrders =
     orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=monthend));
 
-  const [selectedValue, updateSelectedValue] = useState();
-  const [selectedDate, setSelectedDate] = useState(null)
 
-  // function onChangeDateHandler(value){
-  //   setSelectedDate(value)
-  // }
+  const getCustomOrders = (date)=>{
+    setSelectedDate(date); 
+    const customOrders =
+    orders && orders.filter((order) =>((order.createdAt).slice(0, 10)===customDate))
+    setFilterOrders(customOrders)
+  }
+
 
   const daysSelect = (e) => {
     let item = parseInt(e.target.value);
+    setShowDatePicker(false)
     if (item === 1) {
       setFilterOrders(todayOrders);
     } else if (item === 2) {
@@ -158,11 +163,14 @@ function AllOrders() {
     } else if (item === 3) {
       setFilterOrders(monthOrders);
     } else if (item === 4) {
-      setFilterOrders(updateSelectedValue(e)); 
+      setShowDatePicker(true)
+      
     }else{
       setFilterOrders(AllOrdders)
     }
   };
+
+  // setFilterOrders(customOrders)
 
 
   return (
@@ -254,16 +262,20 @@ function AllOrders() {
                     <option value="4">Custom
                     </option>
                   </select>
+                  <h1>{showDatePicker}</h1>
                   {
-                      selectedValue==='4'
-                      ?(
+                      showDatePicker
+                      &&(
                         <DatePicker 
-                        selected={selectedDate}
-                        onChange={(date)=> setSelectedDate(date)} 
+                        selected={customDate}
+                        onChange={(date)=> getCustomOrders(date)} 
+                        // onChange={(date)=> (setSelectedDate(date)
+                        //   )} 
                         dateFormat="dd-MM-yyyy"
                       />
-                      ):null
+                      )
                     }
+
                 </div>
               </div>
             </div>
@@ -334,7 +346,7 @@ function AllOrders() {
                               style={{ cursor: "pointer" }}
                             >
                               {order?._id}
-                              
+
                             </th>
                             <td>
                               {" "}

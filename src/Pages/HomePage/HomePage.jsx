@@ -174,6 +174,9 @@ const HomePage = () => {
     }
   };
 
+  // const showAll = () => {
+  //   setFilterOrders(AllOrdders);
+  // };
 
   return (
     <div className="section2 ">
