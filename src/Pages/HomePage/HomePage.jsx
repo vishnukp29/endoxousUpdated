@@ -182,10 +182,9 @@ const HomePage = () => {
                 className="form-select "
                 aria-label="Default select example"
               >
-                <option defaultValue="lifetime">Lifetime</option>
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+                <option value="1">Lifetime</option>
+                <option value="2">Today</option>
+                <option value="3">Yesterday</option>
               </select>
             </div>
           </div>

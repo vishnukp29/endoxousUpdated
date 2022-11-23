@@ -85,8 +85,6 @@ function AllOrders() {
       setFilterOrders(shippedOrdders);
     } else if (item === 3) {
       setFilterOrders(deliveredOrdders);
-    } else if (item === 4) {
-      setFilterOrders(CancelledOrdders);
     } else {
       setFilterOrders(AllOrdders);
     }
@@ -101,6 +99,52 @@ function AllOrders() {
       setFilterOrders(AllOrdders);
     }
   };
+
+  // Date Filtering
+  let currentDate = new Date().toJSON().slice(0, 10)
+  console.log(currentDate); 
+
+  const getLastWeeksDate=()=> {
+    const now = new Date();
+    return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toJSON().slice(0,10);
+  }
+  const weekend= getLastWeeksDate()
+  console.log(weekend,'weekend');
+  
+  const getMonthEndDate=()=> {
+    const date = new Date();
+    return new Date(date.getMonth() - 1).toJSON().slice(0,10);
+  }
+  const monthend= getMonthEndDate()
+  console.log(monthend,'monthend');
+
+  // const date = new Date();
+  // date.setMonth(date.getMonth() - 1);
+  // console.log(date); 
+
+  const todayOrders =
+    orders && orders.filter((order) => (order.createdAt).slice(0, 10) === currentDate);
+    console.log(todayOrders); 
+    console.log(currentDate);
+
+  const weekOrders =
+    orders && orders.filter((currentDate) =>(currentDate <= weekend));
+    console.log(weekOrders);
+  
+  const monthOrders =
+    orders && orders.filter((currentDate) => currentDate <= monthend);
+
+  const daysSelect = (e) => {
+    let item = parseInt(e.target.value);
+    if (item === 1) {
+      setFilterOrders(todayOrders);
+    } else if (item === 2) {
+      setFilterOrders(weekOrders);
+    } else if (item === 3) {
+      setFilterOrders(monthOrders);
+    }
+  };
+
 
   return (
     <div>
@@ -182,11 +226,13 @@ function AllOrders() {
                   <select
                     className="form-select "
                     aria-label="Default select example"
-                  >
-                    <option selected>Lifetime</option>
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
+                    onChange={daysSelect}
+                  > 
+                    <option defaultValue="Select">Select</option> 
+                    <option value="1">Today</option>
+                    <option value="2">This Week</option>
+                    <option value="3">This Month</option>
+                    <option value="4">Custom</option>
                   </select>
                 </div>
               </div>
@@ -262,7 +308,12 @@ function AllOrders() {
                             <td>
                               {" "}
                               <DateFormatter date={order.createdAt} />{" "}
+                              
+                              {/* {order.createdAt.slice(0, 10)}
+                              {console.log((order.createdAt).slice(0, 10),'Date')};  */}
+
                             </td>
+                            
                             <td>
                               {order.user?.name
                                 ? order.user?.name
