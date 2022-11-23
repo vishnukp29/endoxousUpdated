@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import Loader from "../../Components/SideBar/Loader/Loader";
+import { MdDelete } from "react-icons/md";
 import {
   addBanner,
   clearErrors,
@@ -300,34 +301,32 @@ const HomePage = () => {
             <div className="container-md p-0" style={{ width: "60%" }}>
               <div className="d-flex justify-content-between align-items-center">
                 <h4>Banners</h4>
-                {/* <button type="file" className="btn btn py-0">
-              + Add new
-            </button> */}
                 <form
                   action=""
                   className="createproductForm"
                   encType="multipart/form-data"
                   onSubmit={createBannerSubmitHandler}
                 >
-                  {/* <div id="">
+                  <div>
                     <input
+                      className="d-none"
+                      id="file"
                       type="file"
                       name="avatar"
                       accept="image/*"
                       onChange={bannerDataChange}
                     />
-                  </div> */}
-
-                  {/* <button type="submit" disabled={avatar === "" ? true : false}>
-                    Save
-                  </button> */}
+                    <label htmlFor="file" className="btn btn py-0">
+                      + Add new
+                    </label>
+                  </div>
                 </form>
               </div>
               <div
                 style={{
                   backgroundColor: "white",
                   borderRadius: ".5rem",
-                  overflow: "auto",
+                  overflow: "hidden",
                 }}
                 className="container-sm d-flex w-100 justify-content-between py-2"
               >
@@ -349,15 +348,20 @@ const HomePage = () => {
                 {banners &&
                   banners?.map((banner, index) => (
                     <div
-                      className="card mx-1"
-                      style={{ width: "10rem", height: "5rem" }}
-                      onClick={() => bannerDeleteHandler(banner._id)}
+                      className="card mx-1 p-1"
+                      style={{
+                        width: "10rem",
+                        height: "5rem",
+                        overflow: "hidden"
+                      }}
                     >
-                      <i className="bi bi-trash"></i>
+                      <MdDelete
+                        onClick={() => bannerDeleteHandler(banner._id)}
+                      />
 
                       <img
                         src={banner.url}
-                        className="card-img-top"
+                        className="bg-primary img-fluid rounded-start h-100"
                         alt="..."
                       />
                     </div>
@@ -376,7 +380,7 @@ const HomePage = () => {
                 <table
                   className="table table-borderless"
                   style={{
-                    overflow: "hidden",
+                    overflow: "auto",
                     width: "100%",
                     borderRadius: ".5rem",
                     backgroundColor: "white",

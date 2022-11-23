@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 const EditProduct = () => {
   return (
-    <div className="section2">
+    <div className="section2 ">
       <nav
         className="s2-navabar navbar navbar-expand-lg "
         style={{ backgroundColor: "white" }}

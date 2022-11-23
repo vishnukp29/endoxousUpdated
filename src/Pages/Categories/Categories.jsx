@@ -186,7 +186,7 @@ function Categories() {
                           </th>
 
                           <td>{category?.name} </td>
-                          <td><button type="button" class="btn btn-outline-danger"
+                          <td><button type="button" className="btn btn-outline-danger"
                                 onClick={()=> dispatch(deleteCategory(category._id))}>Delete</button></td>
                           <td> 1 </td>
                           <td>

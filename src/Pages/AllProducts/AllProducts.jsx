@@ -124,7 +124,7 @@ const AllProducts = () => {
                 id="flexCheckDefault"
                 onChange={lowStockHandler}
               />
-              <label className="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" htmlFor="flexCheckDefault">
                 Show low/Out of stock products
               </label>
             </div>
@@ -219,7 +219,7 @@ const AllProducts = () => {
                           </div>
                         </td>
                         <td>{product.name}</td>
-                        {/* <td><button type="button" class="btn btn-outline-danger"
+                        {/* <td><button type="button" className="btn btn-outline-danger"
                               onClick={()=> dispatch(deleteProduct(product._id))}  >Delete</button></td> */}
                         <td>{product.stock}</td>
                         <td>...</td>
