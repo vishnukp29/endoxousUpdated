@@ -142,11 +142,12 @@ function AllOrders() {
   const monthOrders =
     orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=monthend));
 
-  const [startDate, setStartDate] = useState(new Date())
+  const [selectedValue, updateSelectedValue] = useState();
+  const [selectedDate, setSelectedDate] = useState(null)
 
-  function onChangeDateHandler(value){
-    setStartDate(value)
-  }
+  // function onChangeDateHandler(value){
+  //   setSelectedDate(value)
+  // }
 
   const daysSelect = (e) => {
     let item = parseInt(e.target.value);
@@ -156,6 +157,8 @@ function AllOrders() {
       setFilterOrders(weekOrders);
     } else if (item === 3) {
       setFilterOrders(monthOrders);
+    } else if (item === 4) {
+      setFilterOrders(updateSelectedValue(e)); 
     }else{
       setFilterOrders(AllOrdders)
     }
@@ -249,13 +252,18 @@ function AllOrders() {
                     <option value="2">This Week</option>
                     <option value="3">This Month</option>
                     <option value="4">Custom
-                      <DatePicker 
-                        selected={startDate}
-                        onChange={onChangeDateHandler} 
-                        dateFormat="dd MMM yyyy"
-                      />
                     </option>
                   </select>
+                  {
+                      selectedValue==='4'
+                      ?(
+                        <DatePicker 
+                        selected={selectedDate}
+                        onChange={(date)=> setSelectedDate(date)} 
+                        dateFormat="dd-MM-yyyy"
+                      />
+                      ):null
+                    }
                 </div>
               </div>
             </div>
@@ -325,7 +333,8 @@ function AllOrders() {
                               scope="row"
                               style={{ cursor: "pointer" }}
                             >
-                              #{order?._id}
+                              {order?._id}
+                              
                             </th>
                             <td>
                               {" "}

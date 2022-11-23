@@ -48,12 +48,15 @@ const HomePage = () => {
 
   const totalSales =
     orders && orders.reduce((acc, item) => acc + item.totalPrice, 0);
-  const pendingOrders =
+  
+    const pendingOrders =
     orders && orders.filter((order) => order.orderStatus === "pending");
-  const pendingOrdersWorth =
+  
+    const pendingOrdersWorth =
     pendingOrders &&
     pendingOrders.reduce((acc, item) => acc + item.totalPrice, 0);
-  const ordersToShip =
+    
+    const ordersToShip =
     orders &&
     orders.filter(
       (order) =>
@@ -62,6 +65,8 @@ const HomePage = () => {
         order.orderStatus !== "Delivered"
     );
   const top5Nuseries = nurseries && nurseries.slice(0, 5);
+
+  const [filteredOrders, setFilterOrders] = useState([]);
 
   useEffect(() => {
     if (error) {
@@ -138,6 +143,38 @@ const HomePage = () => {
     dispatch(deleteBanner(id));
   };
 
+  // Today
+  let currentDate = new Date().toJSON().slice(0, 10)
+  console.log(currentDate,'current Date'); 
+
+  // Yesterday 
+  const getYesterdayDate=()=> {
+    const now = new Date();
+    return new Date(now.getTime() - 1 * 24 * 60 * 60 * 1000).toJSON().slice(0,10);
+  }
+  const yesterday= getYesterdayDate()
+  console.log(yesterday,'Yesterday');
+
+  // const totalSales =
+  //   orders && orders.reduce((acc, item) => acc + item.totalPrice, 0);
+
+  const todayOrders =
+    orders && orders.filter((order) => (order.createdAt).slice(0, 10) === currentDate);
+    console.log(todayOrders); 
+    console.log(currentDate);
+
+  const daySelect = (e) => {
+    let item = parseInt(e.target.value);
+    if (item === 1) {
+      setFilterOrders();
+    } else if (item === 2) {
+      setFilterOrders();
+    } else if (item === 3) {
+      setFilterOrders();
+    }
+  };
+
+
   return (
     <div className="section2 ">
       <nav
@@ -181,6 +218,7 @@ const HomePage = () => {
               <select
                 className="form-select "
                 aria-label="Default select example"
+                onChange={daySelect}
               >
                 <option value="1">Lifetime</option>
                 <option value="2">Today</option>
@@ -210,7 +248,7 @@ const HomePage = () => {
               <thead>
                 <tr>
                   <th scope="col"></th>
-                  <th scope="col">TOP NURSERIES</th>
+                  <th scope="col">TOP PRODUCTS</th>
                   <th scope="col">SALES</th>
                 </tr>
               </thead>
