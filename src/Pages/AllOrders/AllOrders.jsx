@@ -333,12 +333,8 @@ function AllOrders() {
                               scope="row"
                               style={{ cursor: "pointer" }}
                             >
-<<<<<<< HEAD
-                              #{'0000'.substr(String(index).length ) + Number(index+1)}
-=======
                               {order?._id}
                               
->>>>>>> master
                             </th>
                             <td>
                               {" "}
