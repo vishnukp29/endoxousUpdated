@@ -29,16 +29,14 @@ import { useEffect } from "react";
 import { loadUser } from "./redux/actions/userAction";
 import { useSelector } from "react-redux";
 
-
 //import Page1 from "./Pages/Page1/Page1";
 
 function App() {
-
-  const user = useSelector(state => state?.user)
-  console.log(user&&user,"====== user");
-  useEffect(()=>{
-    Store.dispatch(loadUser())
-},[Store.dispatch])
+  const user = useSelector((state) => state?.user);
+  console.log(user && user, "====== user");
+  useEffect(() => {
+    Store.dispatch(loadUser());
+  }, [Store.dispatch]);
 
   return (
     <div className="App">
@@ -48,23 +46,121 @@ function App() {
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/verifyotp" element={<VerifyOTP />} />
-          <Route path="/products" element={<AllProducts/>} />
+          <Route path="/products" element={<AllProducts />} />
           <Route path="*" element={<PageNotFound />} />
-          
-          <Route path="/dashboard" element={<AdminProtected><HomePage /></AdminProtected>} />
-          <Route path="/orders" element={<AdminProtected><AllOrders /></AdminProtected>} />
-          <Route path="/orders/:id" element={<AdminProtected><AllOrdersPage3 /></AdminProtected>} />
-          <Route path="/allnurseries" element={<AdminProtected><AllNurseries /></AdminProtected>} />
-          <Route path="/ordersreport" element={<AdminProtected><OrdersReports /></AdminProtected>} />
-          <Route path="/salesreport" element={<AdminProtected><SalesReport /></AdminProtected>} />
-          <Route path="/catagories" element={<AdminProtected><Categories /></AdminProtected>} />
-          <Route path="/customers" element={<AdminProtected><MyCustomers /></AdminProtected>} />
-          <Route path="/customer" element={<AdminProtected><CustomerName /></AdminProtected>} />
-          <Route path="/category/new" element={<AdminProtected><AddCategory /></AdminProtected>} />
-          <Route path="/product/new" element={<AdminProtected><AddProducts /></AdminProtected>} />
-          <Route path="/analystics" element={<AdminProtected><Analystics /></AdminProtected>} />
-          <Route path="/support" element={<AdminProtected><CustomerSupport /></AdminProtected>} />
-          <Route path="/product/edit/:id" element={<AdminProtected><EditProducts /></AdminProtected>} />
+
+          <Route
+            path="/dashboard"
+            element={
+              <AdminProtected>
+                <HomePage />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <AdminProtected>
+                <AllOrders />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/orders/:id"
+            element={
+              <AdminProtected>
+                <AllOrdersPage3 />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/allnurseries"
+            element={
+              <AdminProtected>
+                <AllNurseries />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/ordersreport"
+            element={
+              <AdminProtected>
+                <OrdersReports />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/salesreport"
+            element={
+              <AdminProtected>
+                <SalesReport />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/catagories"
+            element={
+              <AdminProtected>
+                <Categories />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/customers"
+            element={
+              <AdminProtected>
+                <MyCustomers />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/customer"
+            element={
+              <AdminProtected>
+                <CustomerName />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/category/new"
+            element={
+              <AdminProtected>
+                <AddCategory />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/product/new"
+            element={
+              <AdminProtected>
+                <AddProducts />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/analystics"
+            element={
+              <AdminProtected>
+                <Analystics />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/support"
+            element={
+              <AdminProtected>
+                <CustomerSupport />
+              </AdminProtected>
+            }
+          />
+          <Route
+            path="/product/edit/:id"
+            element={
+              <AdminProtected>
+                <EditProducts />
+              </AdminProtected>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
@@ -73,11 +169,8 @@ function App() {
 
 export default App;
 
-
-          
-
-
-{/* <Route path="/" element={<Login />} />
+{
+  /* <Route path="/" element={<Login />} />
           <Route path="/verifyotp" element={<VerifyOTP />} />
           <Route path="/products" element={<AllProducts/>} />
           <Route path="/dashboard" element={<HomePage />} />
@@ -93,4 +186,5 @@ export default App;
           <Route path="/product/new" element={<AddProducts />} />
           <Route path="/analystics" element={<Analystics />} />
           <Route path="/support" element={<CustomerSupport />} />
-          <Route path="/product/edit/:id" element={<EditProducts />} /> */}
+          <Route path="/product/edit/:id" element={<EditProducts />} /> */
+}
