@@ -1,4 +1,7 @@
 import React, { useEffect, useState } from "react";
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 import "./Page2.css";
 // import logo from "../../Assets/Images/logo3.png";
 import DateFormatter from "../../utils/DateFormatter";
@@ -95,15 +98,16 @@ function AllOrders() {
     const nuserysOrders =
       orders && orders.filter((order) => order.deliveredBy === nursery);
     setFilterOrders(nuserysOrders);
-    if (nursery == 1) {
+    if (nursery === 1) {
       setFilterOrders(AllOrdders);
     }
   };
 
-  // Date Filtering
+  // Date 
   let currentDate = new Date().toJSON().slice(0, 10)
-  console.log(currentDate); 
+  console.log(currentDate,'current Date'); 
 
+  // Week 
   const getLastWeeksDate=()=> {
     const now = new Date();
     return new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000).toJSON().slice(0,10);
@@ -111,28 +115,38 @@ function AllOrders() {
   const weekend= getLastWeeksDate()
   console.log(weekend,'weekend');
   
-  const getMonthEndDate=()=> {
-    const date = new Date();
-    return new Date(date.getMonth() - 1).toJSON().slice(0,10);
+  // Month 
+  function getMonthEndDate(numOfMonths, date = new Date()) {
+    const dateCopy = new Date(date.getTime());
+    dateCopy.setMonth(dateCopy.getMonth() - numOfMonths);
+    return dateCopy;
   }
-  const monthend= getMonthEndDate()
+  const date = new Date();
+  const monthend = getMonthEndDate(1, date).toJSON().slice(0,10);
   console.log(monthend,'monthend');
-
-  // const date = new Date();
-  // date.setMonth(date.getMonth() - 1);
-  // console.log(date); 
-
+  
+  // Filtering
   const todayOrders =
     orders && orders.filter((order) => (order.createdAt).slice(0, 10) === currentDate);
     console.log(todayOrders); 
     console.log(currentDate);
 
+  // const weekOrders =
+  //   orders && orders.filter((order) =>weekend) >= ((order.createdAt).slice(0, 10));
+  //   console.log(weekOrders);
+
   const weekOrders =
-    orders && orders.filter((currentDate) =>(currentDate <= weekend));
+  orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=weekend));
     console.log(weekOrders);
   
   const monthOrders =
-    orders && orders.filter((currentDate) => currentDate <= monthend);
+    orders && orders.filter((order) =>((order.createdAt).slice(0, 10)>=monthend));
+
+  const [startDate, setStartDate] = useState(new Date())
+
+  function onChangeDateHandler(value){
+    setStartDate(value)
+  }
 
   const daysSelect = (e) => {
     let item = parseInt(e.target.value);
@@ -142,6 +156,8 @@ function AllOrders() {
       setFilterOrders(weekOrders);
     } else if (item === 3) {
       setFilterOrders(monthOrders);
+    }else{
+      setFilterOrders(AllOrdders)
     }
   };
 
@@ -228,11 +244,17 @@ function AllOrders() {
                     aria-label="Default select example"
                     onChange={daysSelect}
                   > 
-                    <option defaultValue="Select">Select</option> 
+                    <option defaultValue="Select">All Orders</option> 
                     <option value="1">Today</option>
                     <option value="2">This Week</option>
                     <option value="3">This Month</option>
-                    <option value="4">Custom</option>
+                    <option value="4">Custom
+                      <DatePicker 
+                        selected={startDate}
+                        onChange={onChangeDateHandler} 
+                        dateFormat="dd MMM yyyy"
+                      />
+                    </option>
                   </select>
                 </div>
               </div>
